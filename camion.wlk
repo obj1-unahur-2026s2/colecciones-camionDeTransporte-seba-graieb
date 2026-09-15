@@ -15,12 +15,12 @@ object camion {
     }    
 
     method descargarCosa(cosa){
-        cosas.add(cosa)
+        cosas.remove(cosa)
     }
 
     method pesoTotalDeLasCosas() {
         return cosas.sum({c => c.peso()})
-    }
+    } // con all
 
     method sonNumerosParLasCosasCargadas() {
         return self.pesoTotalDeLasCosas().even()
@@ -41,7 +41,15 @@ object camion {
     method cosasQueSuperanElNivelDePeligrosidadDe(cosa) {
         return cosas.filter({c => c.nivelDePeligrosidad() > cosa.nivelDePeligrosidad()})
     }
-    
+
+    method estaExcedidoDePeso() {
+       return self.pesoTotal() > 2500
+    }
+
+    method puedeCircularEnRuta(nivel) {
+        return not self.estaExcedidoDePeso() and not cosas.any({ c => c.peligrosidad() > nivel })
+    }
+
 
 
 
