@@ -10,20 +10,33 @@ object camion {
         return self.tara() + self.pesoTotalDeLasCosas()
     }
 
+    method cantidadTotalDeBultos() {
+        return 
+    }
+
     method cargarCosas(cosa){
         cosas.add(cosa)
+        cosa.sufrirConsecuencias()
     }    
 
     method descargarCosa(cosa){
         cosas.remove(cosa)
     }
 
+    method hayAlgunaCosaQuePesaEntre(valor1, valor2) {
+        return cosas.any({c => c.peso().between(valor1, valor2)})
+    }
+
+    method cosaMasPesada() {
+        return cosas.max({c => c.peso()})
+    }
+
     method pesoTotalDeLasCosas() {
         return cosas.sum({c => c.peso()})
-    } // con all
+    } 
 
     method sonNumerosParLasCosasCargadas() {
-        return self.pesoTotalDeLasCosas().even()
+        return cosas.all({c => c.peso().even()})
     }
 
     method hayAlgunaCosaQuePesa(valor) {
